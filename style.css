@@ -1,6 +1,6 @@
 html {
     font-family: 'Roboto Mono', monospace;
-    min-height: 95vh;
+    min-height: 700px;
 }
 
 body {
@@ -73,7 +73,7 @@ button {
     background-color: rgb(126, 187, 215);
 }
 
-button:hover {
+#btns:hover {
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 5px;
     transform: scale(1.1);
 }
@@ -83,4 +83,39 @@ button:hover {
     font-size: 20px;
     color: white;
     font-family: 'Pacifico', cursive;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Logo-related items & animation */
+.github {
+    background-color: #1A1A1B;
+    border: 0px solid #1A1A1B;
+    color: white;
+    height: auto;
+    width: auto;
+    transition: transform .3s ease-in-out;
+}
+
+.github:hover {
+    cursor: pointer;
+    transform: rotate(3.142rad);
+    transition: transform .7s ease-in-out;
+}
+
+/* Name animation */
+.name::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 125px;
+    height: 3px;
+    background: white;
+    transition: transform 0.2s ease-in-out;
+    transform: scale(0);
+}
+
+.name:hover::after{
+    transform: scale(1);
 }
