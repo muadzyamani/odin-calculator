@@ -1,5 +1,5 @@
 html {
-    font-family: monospace;
+    font-family: 'Roboto Mono', monospace;
     min-height: 95vh;
 }
 
@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     align-items: center;
     justify-content: center;
@@ -28,7 +29,7 @@ body {
 .display {
     height: 100px;
     width: 375px;
-    border: 1px solid gray;
+    border: 3px solid gray;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.811);
     border-radius: 5px;
@@ -49,9 +50,10 @@ body {
 }
 
 button {
+    font-family: 'Roboto Mono', monospace;
     height: 80px;
     width: 93px;
-    font-size: 25px;
+    font-size: 30px;
     border-radius: 5px;
 }
 
@@ -74,4 +76,11 @@ button {
 button:hover {
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 5px;
     transform: scale(1.1);
+}
+
+.footer {
+    margin-top: 100px;
+    font-size: 20px;
+    color: white;
+    font-family: 'Pacifico', cursive;
 }
