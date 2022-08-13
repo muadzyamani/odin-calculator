@@ -66,14 +66,19 @@ class Calculator {
             } else if (this.operatorSelected === '*') {
                 this.result = parseFloat(this.previousValue) * parseFloat(this.currentValue);
             } else if (this.operatorSelected === '/') {
-                this.result = parseFloat(this.previousValue) / parseFloat(this.currentValue);
+                this.result = this.round(parseFloat(this.previousValue) / parseFloat(this.currentValue), 8);
             }
 
+            
             displayBox.innerHTML = this.result;
             this.currentValue = this.result;
         });
-
     }
+
+    round(value, precision) {
+        let multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+      }
 }
 
 const calculator = new Calculator();
