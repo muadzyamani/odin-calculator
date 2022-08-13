@@ -73,7 +73,7 @@ button {
     background-color: rgb(126, 187, 215);
 }
 
-#btns:hover {
+div.calculator button:hover {
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 5px;
     transform: scale(1.1);
 }
