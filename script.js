@@ -57,6 +57,8 @@ class Calculator {
     }
 
     compute() {
+        const decimalPrecison = 8;
+
         equalsBtn.addEventListener('click', () => {
             this.currentValueArray = [];
             if (this.operatorSelected === '+') {
@@ -66,9 +68,8 @@ class Calculator {
             } else if (this.operatorSelected === '*') {
                 this.result = parseFloat(this.previousValue) * parseFloat(this.currentValue);
             } else if (this.operatorSelected === '/') {
-                this.result = this.round(parseFloat(this.previousValue) / parseFloat(this.currentValue), 8);
+                this.result = this.round(parseFloat(this.previousValue) / parseFloat(this.currentValue), decimalPrecison);
             }
-
             
             displayBox.innerHTML = this.result;
             this.currentValue = this.result;
