@@ -70,7 +70,7 @@ class Calculator {
             } else if (this.operatorSelected === '/') {
                 this.result = this.round(parseFloat(this.previousValue) / parseFloat(this.currentValue), decimalPrecison);
             }
-            
+
             displayBox.innerHTML = this.result;
             this.currentValue = this.result;
         });
