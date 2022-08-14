@@ -15,7 +15,7 @@ body {
 }
 
 .calculator {
-    height: 500px;
+    height: 530px;
     width: 400px;
     background-color: #313131;
     border: 1px solid whitesmoke;
@@ -27,7 +27,7 @@ body {
 }
 
 .display {
-    height: 100px;
+    height: 120px;
     width: 375px;
     border: 3px solid gray;
     margin-bottom: 10px;
@@ -35,8 +35,18 @@ body {
     border-radius: 5px;
     display: flex;
     justify-content: end;
-    align-items: center;
+    align-items: end;
+    flex-direction: column;
+}
+
+.main-display {
     font-size: 60px;
+    padding-right: 5px;
+}
+
+.small-display {
+    font-size: 20px;
+    padding-right: 5px;
 }
 
 .calculator-buttons {

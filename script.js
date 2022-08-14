@@ -1,4 +1,5 @@
-const displayBox = document.querySelector('div.display');
+const displayBox = document.querySelector('div.main-display');
+const smallDisplayBox = document.querySelector('div.small-display');
 const buttons = document.querySelectorAll('button');
 const numberBtns = document.querySelectorAll('button#num-btns')
 const operatorBtns = document.querySelectorAll('button#operator-btns')
@@ -76,14 +77,15 @@ class Calculator {
     setOperator(operator) {
         this.operatorSelected = operator;
         this.previousValue = this.currentValue;
+        
         this.clearDisplay();
+        smallDisplayBox.innerHTML = `${this.previousValue} ${this.operatorSelected}`
     }
 
     clearDisplay() {
         this.currentValueArray = [];
         this.currentValue = 0;
         this.previousValueArray = [];
-        displayBox.innerHTML = 0;
     }
 
     clear() {
@@ -94,6 +96,7 @@ class Calculator {
         this.previousValueArray = [];
         this.operatorSelected = undefined;
         displayBox.innerHTML = 0;
+        smallDisplayBox.innerHTML = '';
     }
 
     compute() {
@@ -118,6 +121,7 @@ class Calculator {
     handleLargeResult() {
         if (this.lengthOfResult <= this.maximumDisplayValues) {
             displayBox.innerHTML = this.result;
+            smallDisplayBox.innerHTML = `${this.previousValue} ${this.operatorSelected} ${this.currentValue} = `;
         } else {
             displayBox.innerHTML = 'sorry'
         }
