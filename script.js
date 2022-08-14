@@ -20,7 +20,7 @@ class Calculator {
     start() {
         window.addEventListener('keydown', (event) => { this.handleKeyPress(event) });
 
-        acBtn.addEventListener('click', () => this.clear);
+        acBtn.addEventListener('click', () => { this.clear() });
 
         numberBtns.forEach((numberBtn) => {
             numberBtn.addEventListener('click', () => { this.setCurrentValue(numberBtn.textContent) });
@@ -30,11 +30,11 @@ class Calculator {
             operatorBtn.addEventListener('click', () => { this.setOperator(operatorBtn.textContent) });
         });
 
-        equalsBtn.addEventListener('click', () => this.compute);
+        equalsBtn.addEventListener('click', () => { this.compute() });
 
-        deleteBtn.addEventListener('click', () => this.deleteNumber);
+        deleteBtn.addEventListener('click', () => { this.deleteNumber() });
 
-        posNegBtn.addEventListener('click', () => this.togglePosNeg);
+        posNegBtn.addEventListener('click', () => { this.togglePosNeg()} );
     }
 
     handleKeyPress(event) {
@@ -55,6 +55,9 @@ class Calculator {
         }
         if (event.key === 'Escape') {
             this.clear();
+        }
+        if (event.key === '`') {
+            this.togglePosNeg();
         }
     }
 
