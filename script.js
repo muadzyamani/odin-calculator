@@ -15,6 +15,8 @@ class Calculator {
         this.currentValueArray = [];
         this.previousValueArray = [];
         this.operatorSelected = undefined;
+        this.maximumDisplayValues = 9;
+        this.lengthOfResult = 1;
     }
 
     start() {
@@ -62,7 +64,12 @@ class Calculator {
     }
 
     setCurrentValue(number) {
-        this.currentValueArray.push(number);
+        if (this.currentValueArray.length <= this.maximumDisplayValues) {
+            this.currentValueArray.push(number);
+        } else {
+            this.clear();
+        }
+        
         this.updateDisplay();
     }
 
@@ -103,8 +110,17 @@ class Calculator {
             this.result = this.roundNumber(parseFloat(this.previousValue) / parseFloat(this.currentValue), decimalPrecison);
         }
 
-        displayBox.innerHTML = this.result;
+        this.lengthOfResult = this.result.toString().length;
+        this.handleLargeResult();
         this.currentValue = this.result;
+    }
+
+    handleLargeResult() {
+        if (this.lengthOfResult <= this.maximumDisplayValues) {
+            displayBox.innerHTML = this.result;
+        } else {
+            displayBox.innerHTML = 'sorry'
+        }
     }
 
     roundNumber(value, precision) {
