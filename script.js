@@ -18,33 +18,55 @@ class Calculator {
     }
 
     start() {
-        this.clear();
-        this.getCurrentValue();
-        this.decideOperator();
-        this.compute();
-        
-    }
+        window.addEventListener('keydown', (event) => { this.handleKeyPress(event) });
 
-    getCurrentValue() {
-        this.delete();
-        this.togglePosNeg();
+        acBtn.addEventListener('click', () => this.clear);
 
         numberBtns.forEach((numberBtn) => {
-            numberBtn.addEventListener('click', () => {
-                this.currentValueArray.push(numberBtn.innerHTML);
-                this.updateDisplay();
-            });
+            numberBtn.addEventListener('click', () => { this.setCurrentValue(numberBtn.textContent) });
         });
+
+        operatorBtns.forEach((operatorBtn) => {
+            operatorBtn.addEventListener('click', () => { this.setOperator(operatorBtn.textContent) });
+        });
+
+        equalsBtn.addEventListener('click', () => this.compute);
+
+        deleteBtn.addEventListener('click', () => this.deleteNumber);
+
+        posNegBtn.addEventListener('click', () => this.togglePosNeg);
     }
 
-    decideOperator() {
-        operatorBtns.forEach((operatorBtn) => {
-            operatorBtn.addEventListener('click', () => {
-                this.operatorSelected = operatorBtn.innerHTML;
-                this.previousValue = this.currentValue;
-                this.clearDisplay();
-            });
-        });
+    handleKeyPress(event) {
+        if (event.key >= 0 && event.key <= 9) {
+            this.setCurrentValue(event.key);
+        }
+        if (event.key === '.') {
+            this.currentValueArray.push('.');
+        }
+        if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+            this.setOperator(event.key);
+        }
+        if (event.key === '=' || event.key === 'Enter') {
+            this.compute();
+        }
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+            this.deleteNumber();
+        }
+        if (event.key === 'Escape') {
+            this.clear();
+        }
+    }
+
+    setCurrentValue(number) {
+        this.currentValueArray.push(number);
+        this.updateDisplay();
+    }
+
+    setOperator(operator) {
+        this.operatorSelected = operator;
+        this.previousValue = this.currentValue;
+        this.clearDisplay();
     }
 
     clearDisplay() {
@@ -55,33 +77,34 @@ class Calculator {
     }
 
     clear() {
-        acBtn.addEventListener('click', () => {
-            location.reload();
-        });
+        this.result = 0;
+        this.currentValue = 0;
+        this.previousValue = 0;
+        this.currentValueArray = [];
+        this.previousValueArray = [];
+        this.operatorSelected = undefined;
+        displayBox.innerHTML = 0;
     }
 
     compute() {
         const decimalPrecison = 8;
 
-        equalsBtn.addEventListener('click', () => {
-            this.currentValueArray = [];
-            if (this.operatorSelected === '+') {
-                this.result = parseFloat(this.previousValue) + parseFloat(this.currentValue);
-            } else if (this.operatorSelected === '-') {
-                this.result = parseFloat(this.previousValue) - parseFloat(this.currentValue);
-            } else if (this.operatorSelected === '*') {
-                this.result = parseFloat(this.previousValue) * parseFloat(this.currentValue);
-            } else if (this.operatorSelected === '/') {
-                this.result = this.round(parseFloat(this.previousValue) / parseFloat(this.currentValue), decimalPrecison);
-            }
+        this.currentValueArray = [];
+        if (this.operatorSelected === '+') {
+            this.result = parseFloat(this.previousValue) + parseFloat(this.currentValue);
+        } else if (this.operatorSelected === '-') {
+            this.result = parseFloat(this.previousValue) - parseFloat(this.currentValue);
+        } else if (this.operatorSelected === '*') {
+            this.result = parseFloat(this.previousValue) * parseFloat(this.currentValue);
+        } else if (this.operatorSelected === '/') {
+            this.result = this.roundNumber(parseFloat(this.previousValue) / parseFloat(this.currentValue), decimalPrecison);
+        }
 
-            displayBox.innerHTML = this.result;
-            this.currentValue = this.result;
-            // this.currentValue = 0;
-        });
+        displayBox.innerHTML = this.result;
+        this.currentValue = this.result;
     }
 
-    round(value, precision) {
+    roundNumber(value, precision) {
         let multiplier = Math.pow(10, precision || 0);
         return Math.round(value * multiplier) / multiplier;
     }
@@ -91,23 +114,18 @@ class Calculator {
         displayBox.innerHTML = this.currentValue;
     }
 
-    delete() {
-        deleteBtn.addEventListener('click', () => {
-            this.currentValueArray.pop();
-            this.updateDisplay();
-        });
+    deleteNumber() {
+        this.currentValueArray.pop();
+        this.updateDisplay();
     }
 
     togglePosNeg() {
-        posNegBtn.addEventListener('click', () => {
-            if (!this.currentValueArray.includes('-')) {
-                this.currentValueArray.unshift('-')
-            } else {
-                this.currentValueArray.shift();
-            }
-
-            this.updateDisplay();
-        });
+        if (!this.currentValueArray.includes('-')) {
+            this.currentValueArray.unshift('-')
+        } else {
+            this.currentValueArray.shift();
+        }
+        this.updateDisplay();
     }
 }
 
