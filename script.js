@@ -3,7 +3,9 @@ const buttons = document.querySelectorAll('button');
 const numberBtns = document.querySelectorAll('button#num-btns')
 const operatorBtns = document.querySelectorAll('button#operator-btns')
 const acBtn = document.querySelector('button.ac');
-const equalsBtn = document.querySelector('button.equals')
+const equalsBtn = document.querySelector('button.equals');
+const deleteBtn = document.querySelector('button.delete');
+const posNegBtn = document.querySelector('button.posneg');
 
 class Calculator {
     constructor() {
@@ -24,11 +26,13 @@ class Calculator {
     }
 
     getCurrentValue() {
+        this.delete();
+        this.togglePosNeg();
+
         numberBtns.forEach((numberBtn) => {
             numberBtn.addEventListener('click', () => {
                 this.currentValueArray.push(numberBtn.innerHTML);
-                this.currentValue = this.currentValueArray.join((''));
-                displayBox.innerHTML = this.currentValue;
+                this.updateDisplay();
             });
         });
     }
@@ -73,13 +77,38 @@ class Calculator {
 
             displayBox.innerHTML = this.result;
             this.currentValue = this.result;
+            // this.currentValue = 0;
         });
     }
 
     round(value, precision) {
         let multiplier = Math.pow(10, precision || 0);
         return Math.round(value * multiplier) / multiplier;
-      }
+    }
+
+    updateDisplay() {
+        this.currentValue = this.currentValueArray.join((''));
+        displayBox.innerHTML = this.currentValue;
+    }
+
+    delete() {
+        deleteBtn.addEventListener('click', () => {
+            this.currentValueArray.pop();
+            this.updateDisplay();
+        });
+    }
+
+    togglePosNeg() {
+        posNegBtn.addEventListener('click', () => {
+            if (!this.currentValueArray.includes('-')) {
+                this.currentValueArray.unshift('-')
+            } else {
+                this.currentValueArray.shift();
+            }
+
+            this.updateDisplay();
+        });
+    }
 }
 
 const calculator = new Calculator();
