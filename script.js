@@ -78,13 +78,12 @@ class Calculator {
         this.operatorSelected = operator;
         this.previousValue = this.currentValue;
         
-        this.clearDisplay();
+        this.clearValueArrays();
         smallDisplayBox.innerHTML = `${this.previousValue} ${this.operatorSelected}`
     }
 
-    clearDisplay() {
+    clearValueArrays() {
         this.currentValueArray = [];
-        this.currentValue = 0;
         this.previousValueArray = [];
     }
 
