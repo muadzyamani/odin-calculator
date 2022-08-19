@@ -34,7 +34,7 @@ class Calculator {
         });
 
         equalsBtn.addEventListener('click', () => { 
-            if (this.checkContainsEqualBtnErrors() === false) {
+            if (this.checkSyntaxErrors() === false) {
                 this.compute();
             }
          });
@@ -54,7 +54,7 @@ class Calculator {
         if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
             this.setOperator(event.key);
         }
-        if (event.key === '=' || event.key === 'Enter' && this.checkContainsEqualBtnErrors() === false) {
+        if (event.key === '=' || event.key === 'Enter' && this.checkSyntaxErrors() === false) {
             this.compute();
         }
         if (event.key === 'Backspace' || event.key === 'Delete') {
@@ -162,7 +162,7 @@ class Calculator {
         }
     }
 
-    checkContainsEqualBtnErrors() {
+    checkSyntaxErrors() {
         if (this.currentValueArray.length === 0 || this.operatorSelected === undefined) {
             this.clear();
             displayBox.innerHTML = 'error'
