@@ -21,23 +21,27 @@ class Calculator {
     }
 
     start() {
-        window.addEventListener('keydown', (event) => { this.handleKeyPress(event) });
+        window.addEventListener('keydown', (event) => { this.handleKeyPress(event); });
 
-        acBtn.addEventListener('click', () => { this.clear() });
+        acBtn.addEventListener('click', () => { this.clear(); });
 
         numberBtns.forEach((numberBtn) => {
-            numberBtn.addEventListener('click', () => { this.setCurrentValue(numberBtn.textContent) });
+            numberBtn.addEventListener('click', () => { this.setCurrentValue(numberBtn.textContent); });
         });
 
         operatorBtns.forEach((operatorBtn) => {
-            operatorBtn.addEventListener('click', () => { this.setOperator(operatorBtn.textContent) });
+            operatorBtn.addEventListener('click', () => { this.setOperator(operatorBtn.textContent); });
         });
 
-        equalsBtn.addEventListener('click', () => { this.compute() });
+        equalsBtn.addEventListener('click', () => { 
+            if (this.checkContainsEqualBtnErrors() === false) {
+                this.compute();
+            }
+         });
 
-        deleteBtn.addEventListener('click', () => { this.deleteNumber() });
+        deleteBtn.addEventListener('click', () => { this.deleteNumber(); });
 
-        posNegBtn.addEventListener('click', () => { this.togglePosNeg()} );
+        posNegBtn.addEventListener('click', () => { this.togglePosNeg(); } );
     }
 
     handleKeyPress(event) {
@@ -50,7 +54,7 @@ class Calculator {
         if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
             this.setOperator(event.key);
         }
-        if (event.key === '=' || event.key === 'Enter') {
+        if (event.key === '=' || event.key === 'Enter' && this.checkContainsEqualBtnErrors() === false) {
             this.compute();
         }
         if (event.key === 'Backspace' || event.key === 'Delete') {
@@ -155,6 +159,16 @@ class Calculator {
             decimalBtn.disabled = true;
         } else {
             decimalBtn.disabled = false;
+        }
+    }
+
+    checkContainsEqualBtnErrors() {
+        if (this.currentValueArray.length === 0 || this.operatorSelected === undefined) {
+            this.clear();
+            displayBox.innerHTML = 'error'
+            return true;
+        } else {
+            return false;
         }
     }
 }
