@@ -7,6 +7,7 @@ const acBtn = document.querySelector('button.ac');
 const equalsBtn = document.querySelector('button.equals');
 const deleteBtn = document.querySelector('button.delete');
 const posNegBtn = document.querySelector('button.posneg');
+const decimalBtn = document.querySelector('button.decimal');
 
 class Calculator {
     constructor() {
@@ -44,8 +45,8 @@ class Calculator {
         if (event.key >= 0 && event.key <= 9) {
             this.setCurrentValue(event.key);
         }
-        if (event.key === '.') {
-            this.currentValueArray.push('.');
+        if (event.key === '.' && !this.currentValueArray.includes('.')) {
+            this.setCurrentValue('.');
         }
         if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
             this.setOperator(event.key);
@@ -67,6 +68,7 @@ class Calculator {
     setCurrentValue(number) {
         if (this.currentValueArray.length <= this.maximumDisplayValues) {
             this.currentValueArray.push(number);
+            this.handleDecimalStatus();
         } else {
             this.clear();
         }
@@ -94,6 +96,7 @@ class Calculator {
         this.currentValueArray = [];
         this.previousValueArray = [];
         this.operatorSelected = undefined;
+        decimalBtn.disabled = false;
         displayBox.innerHTML = 0;
         smallDisplayBox.innerHTML = '';
     }
@@ -148,6 +151,14 @@ class Calculator {
             this.currentValueArray.shift();
         }
         this.updateDisplay();
+    }
+
+    handleDecimalStatus() {
+        if (this.currentValueArray.includes('.')) {
+            decimalBtn.disabled = true;
+        } else {
+            decimalBtn.disabled = false;
+        }
     }
 }
 
