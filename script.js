@@ -15,7 +15,6 @@ class Calculator {
         this.currentValue = 0;
         this.previousValue = 0;
         this.currentValueArray = [];
-        this.previousValueArray = [];
         this.operatorSelected = undefined;
         this.maximumDisplayValues = 9;
         this.lengthOfResult = 1;
@@ -86,7 +85,6 @@ class Calculator {
 
     clearValueArrays() {
         this.currentValueArray = [];
-        this.previousValueArray = [];
     }
 
     clear() {
@@ -94,7 +92,6 @@ class Calculator {
         this.currentValue = 0;
         this.previousValue = 0;
         this.currentValueArray = [];
-        this.previousValueArray = [];
         this.operatorSelected = undefined;
         decimalBtn.disabled = false;
         displayBox.innerHTML = 0;
